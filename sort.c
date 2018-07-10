@@ -75,3 +75,43 @@ void quick_sort(int* l, int start, int end){
     if(end > j)
         quick_sort(l, j + 1, end);
 }
+
+
+//堆排序
+void heap_sort(int* l, int size){
+    int i, tmp, max, end, mid = size / 2;
+    if(size <= 1)
+        return;
+    while(mid>0){
+        tmp = mid;
+        while(tmp * 2 <= size){
+            if(tmp*2 + 1 > size)
+                max = tmp*2;
+            else
+                max = l[tmp*2-1] > l[tmp*2] ? tmp*2 : tmp*2+1;
+            if(l[tmp-1] < l[max-1]){
+                swap(l, tmp-1, max-1);
+                tmp = max;
+            } else
+                break;
+        }
+        mid--;
+    }
+
+    for(i = 0; i < size - 1; i++){
+        end = size - 1 - i;
+        swap(l, 0, end);
+        tmp = 1;
+        while(tmp*2 <= end){
+            if(tmp*2 + 1 > end)
+                max = tmp*2;
+            else
+                max = l[tmp*2-1] > l[tmp*2] ? tmp*2 : tmp*2+1;
+            if(l[tmp-1] < l[max-1]){
+                swap(l, tmp-1, max-1);
+                tmp = max;
+            } else
+                break;
+        }
+    }
+}
